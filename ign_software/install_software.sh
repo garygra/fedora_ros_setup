@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
@@ -8,34 +9,29 @@ fi
 mkdir -p /opt/ign
 cd /opt/ign
 
-hg clone https://bitbucket.org/ignitionrobotics/ign-cmake 
-hg clone https://bitbucket.org/ignitionrobotics/ign-math 
-hg clone https://bitbucket.org/ignitionrobotics/ign-msgs 
-hg clone https://bitbucket.org/ignitionrobotics/ign-tools 
-hg clone https://bitbucket.org/ignitionrobotics/ign-transport
+declare -a arr=("ign-cmake" "ign-tools" "ign-math" "ign-transport" "ign-msgs")
 
-mkdir -p ign-cmake/build  
-mkdir -p ign-math/build  
-mkdir -p ign-msgs/build  
-mkdir -p ign-tools/build  
-mkdir -p ign-transport/build
-
-cd ign-cmake/build
-cmake ..
-make install
-
-cd ../../ign-tools/build
-cmake ..
-make install
-
-cd ../../ign-msgs/build
-cmake ..
-make install
-
-cd ../../ign-math/build
-cmake ..
-make install
-
-cd ../../ign-transport/build
-cmake ..
-make install
+for i in "${arr[@]}"
+do
+	if [ -d "$i" ]; then
+		echo "$i exists, pulling updates"
+		cd "$i"
+		hg pull
+		cd ..
+	else
+		echo "Clonning $i"
+		hg clone "https://bitbucket.org/ignitionrobotics/$i"
+	fi
+	mkdir -p "$i/build"
+	cd "$i/build"
+	if cmake .. ; then
+		if make install ; then
+			echo "$i installed"
+		else 
+			exit 1;
+		fi
+	else
+		exit 2;
+	fi
+	cd ../../
+done
