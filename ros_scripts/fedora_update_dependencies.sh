@@ -1,8 +1,12 @@
 #!/bin/bash
 set -e
 
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
 dnf install -y python-rosdep pyparsing python-rosinstall_generator python-wstool python-rosinstall @buildsys-build
-rosdep init
 dnf install -y collada-dom-devel python-matplotlib PyQwt-devel gtk2-devel tinyxml-devel PyQt4 yaml-cpp-devel\
 	python-nose pcl-devel opencv-devel ogre-devel libuuid-devel console-bridge-devel sbcl tango-icon-theme\
 	fltk-fluid cppunit-devel python-empy python-netifaces pcl-tools mesa-libGL-devel urdfdom-devel apr-devel\
