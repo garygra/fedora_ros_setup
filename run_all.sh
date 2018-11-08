@@ -72,6 +72,7 @@ done
 
 echo "Installing ROS"
 
+./ros_scripts/fedora_install_dependecies.sh
 ./ros_scripts/ros_install.sh "$1 $3"
 
 echo "Installing ign software"
