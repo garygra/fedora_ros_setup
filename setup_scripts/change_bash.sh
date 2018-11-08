@@ -17,5 +17,5 @@ reset="\[\033[0m\]"
 #Change command prompt
 source /usr/share/git-core/contrib/completion/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
-export PS1="$purple\u:$green\$(__git_ps1)$blue \W $ $reset"
+export PS1="\$purple\\u:\$green\$(__git_ps1)\$blue \\W $ \$reset"
 EOL
