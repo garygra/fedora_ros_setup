@@ -63,11 +63,7 @@ declare -a setup=("install_basics.sh $2" "change_bash.sh")
 
 for i in "${setup[@]}"
 do
-	if [ "./setup_scripts/$i" ] ; then
-		echo "$i done."
-	else
-		exit 1;
-	fi
+	"./setup_scripts/$i"
 done
 
 echo "Installing ROS"
