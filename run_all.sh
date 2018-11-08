@@ -80,4 +80,8 @@ echo "Installing ign software"
 ./ign_software/fedora_dependecies.sh 
 ./ign_software/install_software.sh
 
+echo "Performing network settings "
+
+./network_conf/nis_client.sh
+
 echo "DONE."
