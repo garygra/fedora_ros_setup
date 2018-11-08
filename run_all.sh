@@ -50,7 +50,7 @@ EOF
     	exit 1
 	fi
 
-    sudo "$0" "$reg_user $FED_DISTRO $ROS_DISTRO"
+    sudo "$0 $reg_user $FED_DISTRO $ROS_DISTRO"
     exit
 fi
 
@@ -61,23 +61,23 @@ echo "Running setup"
 
 declare -a setup=("install_basics.sh $2" "change_bash.sh")
 
-for i in "${setup[@]}"
-do
-	exec "./setup_scripts/$i"
-done
+#exec "$(pwd)/network_conf/ssh_enable.sh"
+echo "$(pwd)/setup_scripts/install_basics.sh $2"
+exec "$(pwd)/setup_scripts/install_basics.sh $2"
+exec "$(pwd)/setup_scripts/change_bash.sh"
 
 echo "Installing ROS"
 
-./ros_scripts/fedora_install_dependecies.sh
-./ros_scripts/ros_install.sh "$1 $3"
+exec "$(pwd)/ros_scripts/fedora_install_dependecies.sh"
+exec "$(pwd)/ros_scripts/ros_install.sh $1 $3"
 
 echo "Installing ign software"
 
-./ign_software/fedora_dependecies.sh 
-./ign_software/install_software.sh
+exec "$(pwd)/ign_software/fedora_dependecies.sh"
+exec "$(pwd)/ign_software/install_software.sh"
 
 echo "Performing network settings "
 
-./network_conf/nis_client.sh
+exec "$(pwd)/network_conf/nis_client.sh"
 
 echo "DONE."
