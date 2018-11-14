@@ -9,7 +9,7 @@ fi
 mkdir -p /opt/ign
 cd /opt/ign
 
-declare -a arr=("ign-cmake" "ign-tools" "ign-math" "ign-transport" "ign-msgs")
+declare -a arr=("ign-cmake" "ign-tools" "ign-math" "ign-msgs" "ign-transport")
 
 for i in "${arr[@]}"
 do

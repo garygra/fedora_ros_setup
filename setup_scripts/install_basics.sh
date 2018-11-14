@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+#set -e
 
 
 if [ $1 -eq 0 ] ; then
