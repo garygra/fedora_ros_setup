@@ -27,3 +27,5 @@ if [ ! -f "${2}-desktop-full-wet.rosinstall" ] ; then
 	wstool init -j4 src "${2}-desktop-full-wet.rosinstall"
 fi
 ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release
+
+echo "source /opt/ros/kinetic/ros_catkin_ws/devel_isolated/setup.bash" >> /etc/bashrc
